@@ -1,0 +1,24 @@
+﻿# Dependencias Node
+node_modules/
+dist/
+build/
+
+# Java / Maven
+target/
+*.class
+
+# Archivos de entorno
+.env
+.env.local
+
+# IDEs y editores
+.vscode/
+.idea/
+*.iml
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
