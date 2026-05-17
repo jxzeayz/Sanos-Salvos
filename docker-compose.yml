@@ -42,6 +42,78 @@
     networks:
       - sanos_network
 
+  ms-matching:
+    build:
+      context: ./ms-matching
+    container_name: sanos_ms_matching
+    ports:
+      - "8083:8083"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/sanosysalvos
+      SPRING_DATASOURCE_USERNAME: admin
+      SPRING_DATASOURCE_PASSWORD: admin123
+      SPRING_RABBITMQ_HOST: rabbitmq
+      SPRING_RABBITMQ_PORT: 5672
+      SPRING_RABBITMQ_USERNAME: admin
+      SPRING_RABBITMQ_PASSWORD: admin123
+    depends_on:
+      - postgres
+      - rabbitmq
+    networks:
+      - sanos_network
+
+  ms-notificaciones:
+    build:
+      context: ./ms-notificaciones
+    container_name: sanos_ms_notificaciones
+    ports:
+      - "8085:8085"
+    environment:
+      SPRING_RABBITMQ_HOST: rabbitmq
+      SPRING_RABBITMQ_PORT: 5672
+      SPRING_RABBITMQ_USERNAME: admin
+      SPRING_RABBITMQ_PASSWORD: admin123
+    depends_on:
+      - rabbitmq
+    networks:
+      - sanos_network
+
+  ms-archivos:
+    build:
+      context: ./ms-archivos
+    container_name: sanos_ms_archivos
+    ports:
+      - "8086:8086"
+    environment:
+      MINIO_URL: http://minio:9000
+      MINIO_ACCESS_KEY: admin
+      MINIO_SECRET_KEY: admin123
+      MINIO_BUCKET: mascotas
+    depends_on:
+      - minio
+    networks:
+      - sanos_network
+
+  ms-auditoria:
+    build:
+      context: ./ms-auditoria
+    container_name: sanos_ms_auditoria
+    ports:
+      - "8087:8087"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/sanosysalvos
+      SPRING_DATASOURCE_USERNAME: admin
+      SPRING_DATASOURCE_PASSWORD: admin123
+      SPRING_RABBITMQ_HOST: rabbitmq
+      SPRING_RABBITMQ_PORT: 5672
+      SPRING_RABBITMQ_USERNAME: admin
+      SPRING_RABBITMQ_PASSWORD: admin123
+    depends_on:
+      - postgres
+      - rabbitmq
+    networks:
+      - sanos_network
+
 volumes:
   postgres_data:
   minio_data:
@@ -49,4 +121,3 @@ volumes:
 networks:
   sanos_network:
     driver: bridge
-
