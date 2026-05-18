@@ -37,4 +37,26 @@ public class EventoAuditoriaService {
         return eventoAuditoriaRepository.findById(id)
                 .orElseThrow(() -> new EventoAuditoriaNoEncontradoException(id));
     }
+
+    public List<EventoAuditoria> listarEventosConFiltros(String servicioOrigen, String tipoEvento) {
+        boolean tieneServicioOrigen = servicioOrigen != null && !servicioOrigen.isBlank();
+        boolean tieneTipoEvento = tipoEvento != null && !tipoEvento.isBlank();
+
+        if (tieneServicioOrigen && tieneTipoEvento) {
+            return eventoAuditoriaRepository.findByServicioOrigenIgnoreCaseAndTipoEventoIgnoreCase(
+                    servicioOrigen.trim(),
+                    tipoEvento.trim()
+            );
+        }
+
+        if (tieneServicioOrigen) {
+            return eventoAuditoriaRepository.findByServicioOrigenIgnoreCase(servicioOrigen.trim());
+        }
+
+        if (tieneTipoEvento) {
+            return eventoAuditoriaRepository.findByTipoEventoIgnoreCase(tipoEvento.trim());
+        }
+
+        return eventoAuditoriaRepository.findAll();
+    }
 }

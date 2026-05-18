@@ -26,8 +26,11 @@ public class EventoAuditoriaController {
     }
 
     @GetMapping
-    public List<EventoAuditoria> listarEventos() {
-        return eventoAuditoriaService.listarEventos();
+    public List<EventoAuditoria> listarEventos(
+            @RequestParam(required = false) String servicioOrigen,
+            @RequestParam(required = false) String tipoEvento
+    ) {
+        return eventoAuditoriaService.listarEventosConFiltros(servicioOrigen, tipoEvento);
     }
 
     @GetMapping("/{id}")
