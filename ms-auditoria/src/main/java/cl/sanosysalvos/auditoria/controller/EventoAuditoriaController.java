@@ -29,4 +29,9 @@ public class EventoAuditoriaController {
     public List<EventoAuditoria> listarEventos() {
         return eventoAuditoriaService.listarEventos();
     }
+
+    @GetMapping("/{id}")
+    public EventoAuditoria buscarEventoPorId(@PathVariable Long id) {
+        return eventoAuditoriaService.buscarEventoPorId(id);
+    }
 }

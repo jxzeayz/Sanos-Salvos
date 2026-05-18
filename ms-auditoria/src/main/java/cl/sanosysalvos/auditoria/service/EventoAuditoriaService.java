@@ -2,6 +2,7 @@ package cl.sanosysalvos.auditoria.service;
 
 import cl.sanosysalvos.auditoria.dto.EventoAuditoriaRequest;
 import cl.sanosysalvos.auditoria.entity.EventoAuditoria;
+import cl.sanosysalvos.auditoria.exception.EventoAuditoriaNoEncontradoException;
 import cl.sanosysalvos.auditoria.repository.EventoAuditoriaRepository;
 import org.springframework.stereotype.Service;
 
@@ -30,5 +31,10 @@ public class EventoAuditoriaService {
 
     public List<EventoAuditoria> listarEventos() {
         return eventoAuditoriaRepository.findAll();
+    }
+
+    public EventoAuditoria buscarEventoPorId(Long id) {
+        return eventoAuditoriaRepository.findById(id)
+                .orElseThrow(() -> new EventoAuditoriaNoEncontradoException(id));
     }
 }

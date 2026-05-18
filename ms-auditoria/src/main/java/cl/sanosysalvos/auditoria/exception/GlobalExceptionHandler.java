@@ -35,4 +35,16 @@ public class GlobalExceptionHandler {
 
         return ResponseEntity.badRequest().body(respuesta);
     }
+
+    @ExceptionHandler(EventoAuditoriaNoEncontradoException.class)
+    public ResponseEntity<Map<String, Object>> manejarEventoNoEncontrado(EventoAuditoriaNoEncontradoException ex) {
+        Map<String, Object> respuesta = new HashMap<>();
+
+        respuesta.put("timestamp", LocalDateTime.now());
+        respuesta.put("status", HttpStatus.NOT_FOUND.value());
+        respuesta.put("error", "Recurso no encontrado");
+        respuesta.put("mensaje", ex.getMessage());
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(respuesta);
+    }
 }
