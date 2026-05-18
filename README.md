@@ -147,14 +147,3 @@ Para guardar cambios:
 git add .
 git commit -m "Mensaje descriptivo del cambio"
 git push
-
-## Estado actual
-
-Actualmente el proyecto cuenta con:
-
-- Infraestructura Docker funcionando.
-- Frontend base creado con React + Vite.
-- Microservicios base creados con Spring Boot.
-- Dockerfiles creados para los microservicios trabajados.
-- Docker Compose integrado para levantar infraestructura y microservicios.
-- Health checks funcionando en los microservicios principales.
